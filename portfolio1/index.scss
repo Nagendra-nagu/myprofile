@@ -1,0 +1,788 @@
+$purple: #79009b;
+$dark-blue: #0050d1;
+$blue: #0078ed;
+$light-blue: #0096ee;
+$sky-blue: #00b0d9;
+$cyan: #00c7b8;
+@mixin h1 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 45px;
+  font-weight: 800;
+  letter-spacing: 8px;
+}
+
+@mixin min-h1 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: 7px;
+}
+
+@mixin h2 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 38px;
+  font-weight: 300;
+  letter-spacing: 5px;
+}
+@mixin h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 25px;
+  font-weight: 100;
+  letter-spacing: 4px;
+}
+@mixin card {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 100;
+  letter-spacing: 3px;
+}
+// ....................................................................................
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+// ..........................pre-loader.....................................
+
+.pre-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 999;
+  // display: none;
+
+}
+.container {
+  position: relative;
+  height: 90px;
+  width: 90px;
+  background-color: transparent;
+  animation:rotate 2s ease-in-out infinite; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.line {
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+}
+.line::after {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  animation: after 2s alternate infinite ;
+}
+.line::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  animation: before 2s alternate infinite;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes after {
+  0% {
+    box-shadow: 0px -35px rgb(138, 4, 131), 0px 35px rgb(6, 255, 68);
+   
+  }
+
+  100% {
+    box-shadow: 0px 35px rgb(138, 4, 131), 0px -35px rgb(6, 255, 68);
+    
+  }
+}
+@keyframes before {
+  0% {
+    box-shadow: 35px 0px rgb(253, 0, 0), -35px -0px rgb(0, 211, 226);
+   
+  }
+
+  100% {
+    box-shadow: -35px -0px rgb(253, 0, 0), 35px 0px rgb(0, 211, 226);
+  }
+}
+
+
+
+
+// ............................................................................
+.nav-container {
+  width: 100vw;
+  position: relative;
+
+  .navbar {
+    width: 100%;
+    padding: 2vh 8vw;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+    position: fixed;
+    z-index: 100;
+    .inner-navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      // ///////////////////////////
+      // position: static;
+
+      // #nav-item-container{
+        // position: static;
+        // transform: translate(0px,0px);
+      // }
+// ////////////////////////////////
+      ul {
+        display: flex;
+        width: 40vw;
+        justify-content: space-between;
+        align-items: center;
+        list-style-type: none;
+        a {
+          text-decoration: none;
+          color: $cyan;
+          position: relative;
+          padding-bottom: 10px;
+          @include card();
+
+          &:active {
+            color: white;
+          }
+          &::after {
+            content: "";
+            position: absolute;
+            background-color: $cyan;
+            height: 2px;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            transform: scale(0, 1);
+            transition: transform 0.3s;
+          }
+          &:hover::after {
+            transform: scale(1, 1);
+          }
+        }
+      }
+
+      .nav-icon-container {
+        width: 60px;
+        height: 60px;
+        // border: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        visibility: hidden;
+
+        .nav-icon {
+          height: 2px;
+          width: 80%;
+          background: black;
+
+          &::after,
+          &::before {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 80%;
+            background: black;
+          }
+          &::after {
+            transform: translate(0px, -15px);
+            transition: transform 0.3s;
+          }
+
+          &::before {
+            transform: translate(0px, 15px);
+            transition: transform 0.3s;
+          }
+        }
+        // ...................................................
+        .open {
+          transform: translate(-40px);
+          background-color: transparent;
+
+          &::after {
+            transform: rotate(45deg) translate(32px, -32px);
+          }
+          &::before {
+            transform: rotate(-45deg) translate(32px, 32px);
+          }
+        }
+        // ....................................................
+        &:hover{
+          transform: rotate(180deg);
+          transition: 0.3s;
+        }
+      }
+    }
+  }
+}
+// ..........................mq for navbar 900px...............................
+
+@media screen and (max-width: 900px) {
+  .navbar {
+    .inner-navbar {
+      position: relative;
+      #nav-item-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        flex-direction: column;
+        //   transform: translate(0px,150px);
+        transform: translate(400px, 150px);
+        transition: all 0.3s;
+        li {
+          margin: 10px;
+          padding: 10px 20px;
+          border: 1px solid black;
+          border-radius: 20px;
+          border: none;
+          background: $purple;
+          transition: all 0.3s;
+          a {
+            color: $cyan;
+            &::after {
+              transform: scale(0, 0);
+            }
+          }
+          &:hover {
+            background-color: $cyan;
+            a {
+              color: $purple;
+            }
+          }
+        }
+      }
+      .nav-icon-container {
+        visibility: visible !important;
+      }
+    }
+  }
+}
+
+// ........................................home................
+.main-home-container {
+  background-image: linear-gradient(
+    to right top,
+    #79009b,
+    #aa008c,
+    #ce007a,
+    #e62969,
+    #f6515a,
+    #fd6c51,
+    #ff864a,
+    #ff9f49,
+    #ffb54c,
+    #ffcc53,
+    #fee260,
+    #f9f871
+  );
+  // background-attachment:fixed;
+  height: 100vh;
+  width: auto;
+
+  .home-container {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+
+   .home-content{
+       padding: 0px 8vw;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       height: 100%;
+       width: 100%;
+       .content{
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+           text-align: center;
+       p{
+           @include h2();
+           padding: 20px 0px;
+           #xyz{
+               color: $purple;
+           }
+
+           #or1{
+            color: $purple;
+            animation: blink 0.8s infinite ease-in-out;
+          }
+          @keyframes blink {
+           0%{opacity: 1;}
+           100%{opacity: 0;}
+          }
+          
+       }
+      
+       h1{
+           @include h1();
+       }
+       a{
+           text-decoration: none;
+           color: $cyan;
+           background-color:$purple;
+           padding: 15px 25px;
+           border-radius: 25px;
+           transition: all 0.3s;
+           @include card();
+           &:hover{
+               background-color: $cyan;
+               color: $purple;
+           }
+       }
+   }
+}
+    
+  }
+}
+
+// ......................home mq.........................
+@media screen and (max-width:600px) {
+  .main-home-container{
+
+    .home-container{
+      .home-content{
+      .content{
+        p{
+          @include h3()
+        }
+        h1{
+          @include min-h1()
+        }
+      }
+    }
+  }
+}
+}
+// .............................................aboutme........................
+.about-me-main-container{
+
+  .about-me-container{
+    text-align: center;
+    
+#about-head-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+ div{
+  position: relative;
+
+  h1{
+    @include min-h1();
+    padding-bottom: 10px;
+    
+    &::after{
+      content: '';
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      background-color: $purple;
+      bottom: 0;
+      left: 0;
+
+    }
+ }
+}
+}
+h2{
+@include h3();
+margin-top: 10px;
+}
+.main-about-content{
+  display: flex;
+  padding: 50px 8vw;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  .about-img{
+    padding: 10px;
+    img{
+    width: 100%;
+  }
+  }
+        .about-content{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          padding: 10px;
+        p{
+       @include card();
+        }
+        a{
+          text-decoration: none;
+          margin-top: 20px;
+          padding: 15px 20px;
+          border: none;
+          border-radius: 20px;
+          background-color: $purple;
+          color: $cyan;
+          @include card();
+          transition: all 0.3s;
+
+          &:hover{
+            background-color: $cyan;
+            color: $purple;
+          }
+        }
+        }
+}
+  }
+}
+
+// .............................mq for 900px .................
+
+@media screen and (max-width:900px) {
+  .main-about-content{
+    flex-direction: column;
+   align-items: center;
+  #img{
+    width: 75%;
+  }
+    }
+  }
+  // ...................my skills............................
+
+  .skil-container{
+
+    .skills{
+
+      .skill-head{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        div{
+         position: relative;
+        h1{
+          @include h1();
+          padding-bottom: 10px;
+
+          &::after{
+            content: '';
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background-color: $purple;
+            bottom: 0;
+            left: 0;
+                  }
+       }
+      }
+        h2{
+          @include h3();
+          padding: 10px;
+        }
+     
+    }
+// ..................................................................
+    .real_skills{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+.inner-skills{
+  margin: 20px 10px;
+  width: 75%;
+  h4{
+    text-align: end;
+  }
+  .color{
+    height: 4px;
+    width: 100%;
+    max-width: 950px;
+    border: 1px solid rgba(0,0,0,0.5);
+  }
+  span{
+    display: flex;
+    p{
+      padding: 10px;
+    }
+    i{
+      padding: 10px;
+      font-size: 20px;
+    }
+  }
+}
+    }
+  }
+  }
+  // .............................coloring the skils...............
+  .inner-html{
+    div{
+      background-color: rgb(219, 52, 23);
+      width: 90%;
+      height: 100%;
+    }
+  }
+
+  .inner-css{
+    div{
+      background-color: rgb(49, 49, 187);
+      width: 80%;
+      height: 100%;
+    }
+  }
+
+  .inner-js{
+    div{
+      background-color: rgb(219, 141, 23);
+      width: 80%;
+      height: 100%;
+    }
+  }
+
+  .inner-react{
+    div{
+      background: $sky-blue;
+      width: 75%;
+      height: 100%;
+    }
+  }
+
+
+  .inner-bootstrap{
+    div{
+      background-color: darkblue;
+      width: 95%;
+      height: 100%;
+    }
+  }
+
+  .inner-php{
+    div{
+      background-color: rgb(65, 105, 121);
+      width: 65%;
+      height: 100%;
+    }
+  }
+
+  .inner-mysql{
+    div{
+      background-color: rgb(105, 90, 58);
+      width: 80%;
+      height: 100%;
+    }
+  }
+
+  .inner-worpress{
+    div{
+      background-color: rgb(52, 63, 114);
+      width: 80%;
+      height: 100%;
+    }
+  }
+  // .....................................................................
+
+  .fa-html5{
+    color:rgb(219, 52, 23) ;
+  }
+  .fa-css3-alt{
+    color: rgb(49, 49, 187);
+  }
+  .fa-js{
+    color: rgb(219, 141, 23);
+  }
+  .fa-bootstrap{
+    color: darkblue;
+  }
+  .fa-php{
+    color:rgb(65, 105, 121) ;
+  }
+
+  .fa-database{
+    color: rgb(105, 90, 58);
+  }
+  .fa-wordpress{
+    color: rgb(52, 63, 114);
+  }
+  .fa-react{
+    color: $sky-blue;
+  }
+  // ............................contact-me.................................................
+  .contact-head-conrainer{
+    margin-top: 3vh;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  div{
+    position: relative;
+    .contact-head{
+      text-align: center;
+      @include h2();
+      padding-bottom: 10px;
+      &::after{
+        content: '';
+        position: absolute;
+        height: 3px;
+        width: 100%;
+        background-color: $purple;
+        bottom: 0;
+        left: 0;
+  
+      } 
+    }
+  }
+}
+  .contact-me-container{
+    padding: 10vh 8vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+
+    .contact-me-msg{
+      text-align:start;
+      padding: 10px;
+      margin-bottom: 20px;
+      line-height: 50px;
+
+      a{
+        text-decoration: none;
+        color: $dark-blue;
+        @include card();
+        transition: all 0.3s;
+
+        &:hover{
+          @include h3();
+        }
+      }
+      i{
+        font-size: 25px;
+      }
+      .fa-envelope-open-text{
+        color: $sky-blue;
+      }
+      .fa-linkedin{
+        color:skyblue;
+      }
+      .fa-instagram-square{
+        color: rgb(204, 85, 64);
+      }
+      .fa-facebook-square{
+        color: $dark-blue;
+      }
+    }
+    .contact-me{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        input{
+           &:active{
+             box-shadow: 10px 10px 50px 5px $blue;
+           }
+        }
+
+       .name-email-container{
+         display: flex;
+         text-align: center;
+         justify-content: center;
+         align-items: center;
+        .name,.email{
+          width: 100%;
+          height: 40px;
+          margin: 10px;
+        }
+  
+       }
+        .subject{
+          width: 100%;
+          height: 40px;
+          margin: 10px;
+
+        }
+        .message{
+          width: 100%;
+          height: 60px;
+        }
+        .submit{
+          padding: 10px 20px;
+          border-radius: 15px;
+          margin: 15px;
+          border: none;
+          background-color: $purple;
+          color: $cyan;
+          cursor: pointer;
+          @include card();
+
+
+          &:hover{
+            background-color: $cyan;
+            color: $purple;
+          }
+
+        }
+      }
+    }
+  }
+  @media screen and (max-width:900px) {
+    .contact-me-container{
+      flex-direction: column;
+     
+    }
+  }
+
+  @media screen and (max-width:500px) {
+    .name-email-container{
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+  // ........................fotter..........................
+
+  .footer-container{
+    width: 100%;
+    padding: 20px 8vw;
+    margin-top: 5vh;
+    background-color: $cyan;
+    footer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align:center ;
+        flex-wrap: wrap;
+        p{
+          @include card();
+          span{
+            color: $purple;
+          }
+        }
+      }
+    }
+  }
